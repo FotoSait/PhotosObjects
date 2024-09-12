@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Галерея фотографий</title>
+    <style>
+        body {
+            background-image: url('https://example.com/path/to/your/background-image.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #ffffff;
+            line-height: 1.6;
+        }
+
+        h1 {
+            margin-top: 20px;
+            color: #1abc9c; /* Темно-зеленый цвет */
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        label {
+            color: #ffffff;
+            margin-right: 10px;
+        }
+
+        select, input {
+            padding: 8px;
+            margin-right: 10px;
+            border: 1px solid #ffffff;
+            border-radius: 4px;
+            background-color: #2c3e50; /* Темно-серый цвет */
+            color: #ecf0f1; /* Светло-серый цвет */
+        }
+
+        button {
+            padding: 8px 16px;
+            background-color: #3498db; /* Голубой цвет */
+            color: #ffffff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #2980b9; /* Темно-голубой цвет при наведении */
+        }
+
+        #gallery {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            align-items: center;
+            margin: 20px;
+        }
+
+        #gallery img {
+            width: 300px;
+            height: auto;
+            margin: 10px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Тень для изображений */
+            transition: transform 0.3s ease-in-out;
+        }
+
+        #gallery img:hover {
+            transform: scale(1.1); /* Увеличение изображения при наведении */
+        }
+    
+    </style>
+</head>
+<body>
+    <h1>Галерея фотографий</h1>
+    <!-- Форма поиска -->
+    <!-- <form>
+        <label for="search">Поиск:</label>
+        <input type="text" id="search" name="search">
+        <button type="button" onclick="searchPhotos()">Искать</button>
+    </form>  -->
+
+    <!-- Фильтры по категориям -->
+    <div>
+        <label for="category">Категория:</label>
+        <select id="category" onchange="filterByCategory()">
+            <option value="all">Все</option>
+            <option value="Гибкая Черепица 1">Гибкая Черепица 1</option>
+            <option value="Гибкая Черепица 2">Гибкая Черепица 2</option>
+            <option value="Гибкая Черепица 3">Гибкая Черепица 3</option>
+            <option value="Медная кровля 1">Медная кровля 1</option>
+            <option value="Медная кровля 2">Медная кровля 2</option>
+            <option value="Медная кровля 3">Медная кровля 3</option>
+            <option value="Металлочерепица">Металлочерепица</option>
+            <option value="Метробонд">Метробонд</option>
+            <option value="Подшивка 1">Подшивка 1</option>
+            <option value="Подшивка 2">Подшивка 2</option>
+            <option value="Ромбики 1">Ромбики 1</option>
+            <option value="Ромбики 2">Ромбики 2</option>
+            <option value="Ромбики 3">Ромбики 3</option>
+            <option value="Фальц 1">Фальц 1</option>
+            <option value="Фальц 2">Фальц 2</option>
+            <option value="Фальц 3">Фальц 3</option>
+            <option value="Фальц 4">Фальц 4</option>
+            <option value="Сайдинг 1">Сайдинг 1</option>
+            <option value="Сайдинг 2">Сайдинг 2</option>
+            <option value="Храм 1">Храм 1</option>
+            <option value="Храм 2">Храм 2</option>
+            <!-- Добавьте свои категории -->
+        </select>
+    </div>
+
+    <!-- Галерея фотографий -->
+    <div id="gallery">
+        <!-- Фотографии будут добавлены программно через JavaScript -->
+    </div>
+
+    <script>
+        // Заглушка для фотографий с категориями (замените на вашу логику получения изображений)
+        const photos = [
+            { url: 'https://i.postimg.cc/YS80XytK/1.jpg', category: 'Гибкая Черепица 1' },
+            { url: 'https://i.postimg.cc/XvNd75JW/2.jpg', category: 'Гибкая Черепица 1' },
+            { url: 'https://i.postimg.cc/8z4f3Cb0/3.jpg', category: 'Гибкая Черепица 1' },
+            { url: 'https://i.postimg.cc/fTjVtb1R/4.jpg', category: 'Гибкая Черепица 1' },
+            { url: 'https://i.postimg.cc/jdZsYnGP/5.jpg', category: 'Гибкая Черепица 1' },
+            { url: 'https://i.postimg.cc/j2xGMZq9/1.jpg', category: 'Гибкая Черепица 2' },
+            { url: 'https://i.postimg.cc/NFdZSm50/2.jpg', category: 'Гибкая Черепица 2' },
+            { url: 'https://i.postimg.cc/T3zFzRYn/3.jpg', category: 'Гибкая Черепица 2' },
+            { url: 'https://i.postimg.cc/q72S09zS/4.jpg', category: 'Гибкая Черепица 2' },
+            { url: 'https://i.postimg.cc/xCY7dtmC/5.jpg', category: 'Гибкая Черепица 2' },
+            { url: 'https://i.postimg.cc/j2SFH2ZY/6.jpg', category: 'Гибкая Черепица 2' },
+            { url: 'https://i.postimg.cc/XvKHtdP0/7.jpg', category: 'Гибкая Черепица 2' },
+            { url: 'https://i.postimg.cc/t4DQx0X6/1.jpg', category: 'Гибкая Черепица 3' },
+            { url: 'https://i.postimg.cc/Ls0cxzg6/2.jpg', category: 'Гибкая Черепица 3' },
+            { url: 'https://i.postimg.cc/nVmy19Fp/3.jpg', category: 'Гибкая Черепица 3' },
+            { url: 'https://i.postimg.cc/524D1Pw2/4.jpg', category: 'Гибкая Черепица 3' },
+            { url: 'https://i.postimg.cc/wB3PR74K/5.jpg', category: 'Гибкая Черепица 3' },
+            { url: 'https://i.postimg.cc/NFvPnbsY/6.jpg', category: 'Гибкая Черепица 3' },
+            { url: 'https://i.postimg.cc/3wySJzWY/7.jpg', category: 'Гибкая Черепица 3' },
+            { url: 'https://i.postimg.cc/1XSJBtB3/8.jpg', category: 'Гибкая Черепица 3' },
+            { url: 'https://i.postimg.cc/xjGsCvjJ/9.jpg', category: 'Гибкая Черепица 3' },
+            { url: 'https://i.postimg.cc/hGbJxtXr/CIMG2845.jpg', category: 'Медная кровля 1' },
+            { url: 'https://i.postimg.cc/rwgsFY3n/CIMG2971.jpg', category: 'Медная кровля 1' },
+            { url: 'https://i.postimg.cc/zGDDMFvn/CIMG3656.jpg', category: 'Медная кровля 1' },
+            { url: 'https://i.postimg.cc/TwbTmkNX/CIMG4140.jpg', category: 'Медная кровля 1' },
+            { url: 'https://i.postimg.cc/13WWcsbp/CIMG4006.jpg', category: 'Медная кровля 2' },
+            { url: 'https://i.postimg.cc/wBZ0ZFqM/CIMG4008.jpg', category: 'Медная кровля 2' },
+            { url: 'https://i.postimg.cc/3RGnTpNB/CIMG4009.jpg', category: 'Медная кровля 2' },
+            { url: 'https://i.postimg.cc/dQ84N8zQ/CIMG4142.jpg', category: 'Медная кровля 2' },
+            { url: 'https://i.postimg.cc/kXqw02mQ/CIMG4143.jpg', category: 'Медная кровля 2' },
+            { url: 'https://i.postimg.cc/Rh9QxDjS/CIMG4172.jpg', category: 'Медная кровля 2' },
+            { url: 'https://i.postimg.cc/XYMLtFw4/1.jpg', category: 'Медная кровля 3' },
+            { url: 'https://i.postimg.cc/G2pxvj1J/2.jpg', category: 'Медная кровля 3' },
+            { url: 'https://i.postimg.cc/mgGqCKpY/3.jpg', category: 'Медная кровля 3' },
+            { url: 'https://i.postimg.cc/tCFvq2RY/4.jpg', category: 'Медная кровля 3' },
+            { url: 'https://i.postimg.cc/rwJhWsrT/5.jpg', category: 'Медная кровля 3' },
+            { url: 'https://i.postimg.cc/k5gTyCQb/6.jpg', category: 'Медная кровля 3' },
+            { url: 'https://i.postimg.cc/fL65Z06c/7.jpg', category: 'Медная кровля 3' },
+            { url: 'https://i.postimg.cc/SxgxPLMv/1.jpg', category: 'Металлочерепица' },
+            { url: 'https://i.postimg.cc/MZ0x4bkm/2.jpg', category: 'Металлочерепица' },
+            { url: 'https://i.postimg.cc/rF8cL0MX/3.jpg', category: 'Металлочерепица' },
+            { url: 'https://i.postimg.cc/BQM3ZSn8/4.jpg', category: 'Металлочерепица' },
+            { url: 'https://i.postimg.cc/W1yPr5rT/5.jpg', category: 'Металлочерепица' },
+            { url: 'https://i.postimg.cc/mkTQwNMg/1.jpg', category: 'Метробонд' },
+            { url: 'https://i.postimg.cc/XYr9QvZd/3.jpg', category: 'Метробонд' },
+            { url: 'https://i.postimg.cc/nzJ7FY3G/4.jpg', category: 'Метробонд' },
+            { url: 'https://i.postimg.cc/wvQN7yP8/5.jpg', category: 'Метробонд' },
+            { url: 'https://i.postimg.cc/y6n9KRc0/6.jpg', category: 'Метробонд' },
+            { url: 'https://i.postimg.cc/FsBLdQPR/7.jpg', category: 'Метробонд' },
+            { url: 'https://i.postimg.cc/fRdJVSt2/8.jpg', category: 'Метробонд' },
+            { url: 'https://i.postimg.cc/FsMKXFWj/9.jpg', category: 'Метробонд' },
+            { url: 'https://i.postimg.cc/rw0V0c6Q/1.jpg', category: 'Подшивка 1' },
+            { url: 'https://i.postimg.cc/yN07jP8R/2.jpg', category: 'Подшивка 1' },
+            { url: 'https://i.postimg.cc/4dZsS9YS/3.jpg', category: 'Подшивка 1' },
+            { url: 'https://i.postimg.cc/XJ84SYF7/4.jpg', category: 'Подшивка 1' },
+            { url: 'https://i.postimg.cc/PfSTSNTS/5.jpg', category: 'Подшивка 1' },
+            { url: 'https://i.postimg.cc/K80mHzPG/1.jpg', category: 'Подмивка 2' },
+            { url: 'https://i.postimg.cc/G3PwftRW/2.jpg', category: 'Подмивка 2' },
+            { url: 'https://i.postimg.cc/X7VS6W7p/3.jpg', category: 'Подмивка 2' },
+            { url: 'https://i.postimg.cc/fRr6d079/4.jpg', category: 'Подмивка 2' },
+            { url: 'https://i.postimg.cc/ydqtQ4b6/5.jpg', category: 'Подмивка 2' },
+            { url: 'https://i.postimg.cc/KcDwNWrF/6.jpg', category: 'Подмивка 2' },
+            { url: 'https://i.postimg.cc/xChvynxg/1.jpg', category: 'Ромбики 1' },
+            { url: 'https://i.postimg.cc/prjDs43v/2.jpg', category: 'Ромбики 1' },
+            { url: 'https://i.postimg.cc/qMfcNBCv/3.jpg', category: 'Ромбики 1' },
+            { url: 'https://i.postimg.cc/fRDxvHC4/4.jpg', category: 'Ромбики 1' },
+            { url: 'https://i.postimg.cc/QdzcrXsD/1.jpg', category: 'Ромбики 2' },
+            { url: 'https://i.postimg.cc/W3LrhXhf/2.jpg', category: 'Ромбики 2' },
+            { url: 'https://i.postimg.cc/4ywh2Gwr/3.jpg', category: 'Ромбики 2' },
+            { url: 'https://i.postimg.cc/WbbZFD1j/4.jpg', category: 'Ромбики 2' },
+            { url: 'https://i.postimg.cc/bwZ2gKnB/5.jpg', category: 'Ромбики 2' },
+            { url: 'https://i.postimg.cc/KzDK4FXR/6.jpg', category: 'Ромбики 2' },
+            { url: 'https://i.postimg.cc/hvCfbrtn/7.jpg', category: 'Ромбики 2' },
+            { url: 'https://i.postimg.cc/ZRbN80xr/1.jpg', category: 'Ромбики 3' },
+            { url: 'https://i.postimg.cc/CKYn0dtW/2.jpg', category: 'Ромбики 3' },
+            { url: 'https://i.postimg.cc/ZRsW6HRS/3.jpg', category: 'Ромбики 3' },
+            { url: 'https://i.postimg.cc/T1Zh4PgN/4.jpg', category: 'Ромбики 3' },
+            { url: 'https://i.postimg.cc/Hk1V0VpV/5.jpg', category: 'Ромбики 3' },
+            { url: 'https://i.postimg.cc/nLHr5g9x/6.jpg', category: 'Ромбики 3' },
+            { url: 'https://i.postimg.cc/0Ncjqn7w/7.jpg', category: 'Ромбики 3' },
+            { url: 'https://i.postimg.cc/NMn0K0JG/8.jpg', category: 'Ромбики 3' },
+            { url: 'https://i.postimg.cc/WztX75w6/0.jpg', category: 'Фальц 1' },
+            { url: 'https://i.postimg.cc/Xqhx192M/1.jpg', category: 'Фальц 1' },
+            { url: 'https://i.postimg.cc/jdwMwk5R/2.jpg', category: 'Фальц 1' },
+            { url: 'https://i.postimg.cc/KYNfS69D/3.jpg', category: 'Фальц 1' },
+            { url: 'https://i.postimg.cc/C1xNFcXT/4.jpg', category: 'Фальц 1' },
+            { url: 'https://i.postimg.cc/pr9JjpPs/5.jpg', category: 'Фальц 1' },
+            { url: 'https://i.postimg.cc/Qdn5QjnP/1.jpg', category: 'Фальц 2' },
+            { url: 'https://i.postimg.cc/xTfbBXwh/2.jpg', category: 'Фальц 2' },
+            { url: 'https://i.postimg.cc/nc3QxHZz/3.jpg', category: 'Фальц 2' },
+            { url: 'https://i.postimg.cc/nLDsqBmj/4.jpg', category: 'Фальц 2' },
+            { url: 'https://i.postimg.cc/sX5wHMk1/1.jpg', category: 'Фальц 3' },
+            { url: 'https://i.postimg.cc/jdxZvdZd/2.jpg', category: 'Фальц 3' },
+            { url: 'https://i.postimg.cc/sg8mVPyv/3.jpg', category: 'Фальц 3' },
+            { url: 'https://i.postimg.cc/J0P3SZP7/4.jpg', category: 'Фальц 3' },
+            { url: 'https://i.postimg.cc/nh6K8HYm/5.jpg', category: 'Фальц 3' },
+            { url: 'https://i.postimg.cc/jq93TSnz/1.jpg', category: 'Фальц 4' },
+            { url: 'https://i.postimg.cc/9fWJb4sj/2.jpg', category: 'Фальц 4' },
+            { url: 'https://i.postimg.cc/26yTpszc/3.jpg', category: 'Фальц 4' },
+            { url: 'https://i.postimg.cc/KvD9Mrs5/4.jpg', category: 'Фальц 4' },
+            { url: 'https://i.postimg.cc/5NbgbQNQ/5.jpg', category: 'Фальц 4' },
+            { url: 'https://i.postimg.cc/9fWWCpww/1.jpg', category: 'Сайдинг 1' },
+            { url: 'https://i.postimg.cc/nMbJ5Ytz/2.jpg', category: 'Сайдинг 1' },
+            { url: 'https://i.postimg.cc/N0f5pY4n/3.jpg', category: 'Сайдинг 1' },
+            { url: 'https://i.postimg.cc/9My59w9H/4.jpg', category: 'Сайдинг 1' },
+            { url: 'https://i.postimg.cc/gJVQjF9Y/5.jpg', category: 'Сайдинг 1' },
+            { url: 'https://i.postimg.cc/SNT5JfPz/6.jpg', category: 'Сайдинг 1' },
+            { url: 'https://i.postimg.cc/HkM2d01m/1.jpg', category: 'Сайдинг 2' },
+            { url: 'https://i.postimg.cc/xdSPCk9z/2.jpg', category: 'Сайдинг 2' },
+            { url: 'https://i.postimg.cc/HL2bkBSq/3.jpg', category: 'Сайдинг 2' },
+            { url: 'https://i.postimg.cc/XYKCss0r/4.jpg', category: 'Сайдинг 2' },
+            { url: 'https://i.postimg.cc/sxZB7ccD/5.jpg', category: 'Сайдинг 2' },
+            { url: 'https://i.postimg.cc/jqWvMY3C/6.jpg', category: 'Сайдинг 2' },
+            { url: 'https://i.postimg.cc/gkbR3xwc/1.jpg', category: 'Храм 1' },
+            { url: 'https://i.postimg.cc/brcG05wV/2.jpg', category: 'Храм 1' },
+            { url: 'https://i.postimg.cc/T2g52Ttz/3.jpg', category: 'Храм 1' },
+            { url: 'https://i.postimg.cc/mgXtpkrH/4.jpg', category: 'Храм 1' },
+            { url: 'https://i.postimg.cc/G2036ynH/5.jpg', category: 'Храм 1' },
+            { url: 'https://i.postimg.cc/d1LCqdhv/1.jpg', category: 'Храм 2' },
+            { url: 'https://i.postimg.cc/SNWMNmxX/2.jpg', category: 'Храм 2' },
+            { url: 'https://i.postimg.cc/rpzsWTMN/3.jpg', category: 'Храм 2' },
+            { url: 'https://i.postimg.cc/vHzZNTmv/4.jpg', category: 'Храм 2' },
+
+            // Добавьте свои изображения с категориями
+        ];
+
+        // Функция отображения фотографий
+        function displayPhotos(photosArray) {
+            const galleryElement = document.getElementById('gallery');
+            galleryElement.innerHTML = '';
+
+            photosArray.forEach(photo => {
+                const imgElement = document.createElement('img');
+                imgElement.src = photo.url;
+                imgElement.alt = 'Описание фотографии';
+                galleryElement.appendChild(imgElement);
+            });
+        };
+
+        // Функция поиска фотографий
+        function searchPhotos() {
+            const searchInput = document.getElementById('search');
+            const searchTerm = searchInput.value.toLowerCase();
+
+            const filteredPhotos = photos.filter(photo => photo.url.toLowerCase().includes(searchTerm));
+            displayPhotos(filteredPhotos);
+        }
+
+        // Функция фильтрации по категориям
+        function filterByCategory() {
+            const categorySelect = document.getElementById('category');
+            const selectedCategory = categorySelect.value;
+
+            if (selectedCategory === 'all') {
+                displayPhotos(photos);
+            } else {
+                const filteredByCategory = photos.filter(photo => photo.category === selectedCategory);
+                displayPhotos(filteredByCategory);
+            }
+        }
+
+        // Первоначальное отображение всех фотографий
+        displayPhotos(photos);
+    </script>
+</body>
+</html>
